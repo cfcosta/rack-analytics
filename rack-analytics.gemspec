@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "rack-analytics/version"
+require "rack/analytics/version"
 
 Gem::Specification.new do |s|
   s.name        = "rack-analytics"
   s.version     = Rack::Analytics::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
+  s.authors     = ["Cainã Costa"]
+  s.email       = ["cainan.costa@gmail.com"]
   s.homepage    = "http://rubygems.org/gems/rack-analytics"
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{A rack middleware that collects access statistics}
+  s.description = %q{A rack middleware that collects access statistics and saves them on a Redis database.}
 
   s.rubyforge_project = "rack-analytics"
 
