@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe Rack::Analytics::Application do
-  it "should be true" do
-    true.should be_true
+  it "should render a get request correctly" do
+    get '/'
+
+    last_response.should be_ok
+    last_response.body.should == "homepage"
   end
 end
