@@ -13,4 +13,8 @@ require 'spec/support/dummy_app'
 RSpec.configure do |config|
   config.include Webrat::Matchers
   config.include Rack::Test::Methods
+
+  def app
+    DummyApp
+  end
 end
