@@ -43,4 +43,14 @@ describe Rack::Analytics::Application do
 
     db.get('analytics:/:views').should == "1"
   end
+
+  it "should not increment access counter on requests other than get" do
+    db.set('analytics:/:views', 0)
+
+    post '/'
+    put '/'
+    delete '/'
+
+    db.get('analytics:/:views').should == "0"
+  end
 end

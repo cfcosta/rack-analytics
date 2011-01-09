@@ -9,11 +9,13 @@ module Rack
       end
 
       def call env
-        key = DEFAULT_MASK.dup
-        key['#path#'] = env['PATH_INFO']
-        key['#method#'] = 'views'
+        if env['REQUEST_METHOD'] == 'GET'
+          key = DEFAULT_MASK.dup
+          key['#path#'] = env['PATH_INFO']
+          key['#method#'] = 'views'
 
-        db.incr key
+          db.incr key
+        end
 
         @app.call(env)
       end
