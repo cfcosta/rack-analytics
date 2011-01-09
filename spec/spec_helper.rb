@@ -17,7 +17,7 @@ RSpec.configure do |config|
 
   def app
     Rack::Builder.new do
-      use Rack::Analytics::Application
+      use Rack::Analytics::Application, :redis => db
       run DummyApp
     end
   end

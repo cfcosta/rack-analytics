@@ -9,6 +9,11 @@ module Rack
       def call env
         @app.call(env)
       end
+
+      private
+      def db
+        @options[:redis] || Redis.new
+      end
     end
   end
 end
