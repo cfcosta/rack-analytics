@@ -1,6 +1,3 @@
-require "rubygems"
-require "rspec"
-require "webrat"
 require 'rubygems'
 require 'rspec'
 require 'webrat'
