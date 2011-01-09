@@ -28,4 +28,11 @@ describe Rack::Analytics::Application do
     last_response.should be_ok
     last_response.body.should == "homepage with put"
   end
+
+  it "should render a delete request correctly" do
+    delete '/'
+
+    last_response.should be_ok
+    last_response.body.should == "homepage with delete"
+  end
 end
