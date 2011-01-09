@@ -2,6 +2,7 @@ require 'rubygems'
 require 'rspec'
 require 'webrat'
 require 'rack/test'
+require 'msgpack'
 
 $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__)) + '/lib'
 $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__))
