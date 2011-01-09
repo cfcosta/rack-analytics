@@ -1,6 +1,9 @@
 require "rubygems"
 require "rspec"
 require "webrat"
+require 'rubygems'
+require 'rspec'
+require 'webrat'
 
 $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__)) + '/lib'
 $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__))
