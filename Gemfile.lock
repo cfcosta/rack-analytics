@@ -37,6 +37,7 @@ PLATFORMS
 DEPENDENCIES
   rack
   rack-analytics!
+  rack-test
   redis
   rspec
   sinatra
