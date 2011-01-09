@@ -15,6 +15,9 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods
 
   def app
-    DummyApp
+    Rack::Builder.new do
+      use Rack::Analytics::Application
+      run DummyApp
+    end
   end
 end
