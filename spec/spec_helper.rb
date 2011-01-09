@@ -13,6 +13,7 @@ require 'spec/support/redis_mock'
 
 RSpec.configure do |config|
   config.include Webrat::Matchers
+  config.include Webrat::Methods
   config.include Rack::Test::Methods
 
   def app
