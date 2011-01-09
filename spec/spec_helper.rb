@@ -13,5 +13,5 @@ require 'rack/analytics'
 require 'spec/support/dummy_app'
 
 RSpec.configure do |config|
-  include Webrat::Matchers
+  config.include Webrat::Matchers
 end
