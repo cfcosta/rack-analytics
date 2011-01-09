@@ -21,4 +21,11 @@ describe Rack::Analytics::Application do
     last_response.should be_ok
     last_response.body.should == "homepage with post"
   end
+
+  it "should render a put request correctly" do
+    put '/'
+
+    last_response.should be_ok
+    last_response.body.should == "homepage with put"
+  end
 end
