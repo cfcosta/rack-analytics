@@ -1,12 +1,20 @@
 module Rack
   module Analytics
     class Application
+      DEFAULT_MASK = "analytics:#path#:#method#"
+
       def initialize app, options = {}, &block
         @app = app
         @options = options
       end
 
       def call env
+        key = DEFAULT_MASK.dup
+        key['#path#'] = env['PATH_INFO']
+        key['#method#'] = 'views'
+
+        db.incr key
+
         @app.call(env)
       end
 

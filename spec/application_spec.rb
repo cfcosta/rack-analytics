@@ -35,4 +35,12 @@ describe Rack::Analytics::Application do
     last_response.should be_ok
     last_response.body.should == "homepage with delete"
   end
+
+  it "should increment access counter of the root page" do
+    db.set('analytics:/:views', 0)
+
+    get '/'
+
+    db.get('analytics:/:views').should == "1"
+  end
 end
