@@ -9,6 +9,16 @@ module Rack
       end
 
       def call env
+        set_statistics env
+        @app.call(env)
+      end
+
+      private
+      def db
+        @options[:redis] || Redis.new
+      end
+
+      def set_statistics env
         if env['REQUEST_METHOD'] == 'GET'
           key = DEFAULT_MASK.dup
           key['#path#'] = env['PATH_INFO']
@@ -16,13 +26,6 @@ module Rack
 
           db.incr key
         end
-
-        @app.call(env)
-      end
-
-      private
-      def db
-        @options[:redis] || Redis.new
       end
     end
   end
