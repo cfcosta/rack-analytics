@@ -14,4 +14,11 @@ describe Rack::Analytics::Application do
     last_response.should be_ok
     last_response.body.should == "inner page"
   end
+
+  it "should render a post request correctly" do
+    post '/'
+
+    last_response.should be_ok
+    last_response.body.should == "homepage with post"
+  end
 end
