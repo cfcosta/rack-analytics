@@ -13,6 +13,6 @@ class RedisMock
 
   def incr key
     set key, 0 if @attributes[key].nil?
-    @atrributes[key] = (attributes[key].to_i + 1)
+    @attributes[key] = (@attributes[key].to_i + 1)
   end
 end
