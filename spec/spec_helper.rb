@@ -9,6 +9,7 @@ $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__))
 require 'rack/analytics'
 
 require 'spec/support/dummy_app'
+require 'spec/support/redis_mock'
 
 RSpec.configure do |config|
   config.include Webrat::Matchers
@@ -19,5 +20,9 @@ RSpec.configure do |config|
       use Rack::Analytics::Application
       run DummyApp
     end
+  end
+
+  def db
+    $redis ||= RedisMock.new
   end
 end
