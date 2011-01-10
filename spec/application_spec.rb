@@ -53,4 +53,12 @@ describe Rack::Analytics::Application do
 
     db.get('analytics:/:views').should == "0"
   end
+
+  it "should save the referers informations" do
+    db.del 'analytics:/:referers'
+
+    get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
+
+    MessagePack.unpack(db.get('analytics:/:referers')).should == {'http://www.google.com' => 1}
+  end
 end
