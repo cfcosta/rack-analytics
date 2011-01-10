@@ -3,6 +3,7 @@ require 'rspec'
 require 'webrat'
 require 'rack/test'
 require 'msgpack'
+require 'redis'
 
 $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__)) + '/lib'
 $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__))
@@ -10,7 +11,6 @@ $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__))
 require 'rack/analytics'
 
 require 'spec/support/dummy_app'
-require 'spec/support/redis_mock'
 
 RSpec.configure do |config|
   config.include Webrat::Matchers
@@ -29,6 +29,10 @@ RSpec.configure do |config|
   end
 
   def db
-    $redis ||= RedisMock.new
+    $redis ||= Redis.new
+  end
+
+  def namespace
+    'analytics-test'
   end
 end

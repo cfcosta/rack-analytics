@@ -37,28 +37,28 @@ describe Rack::Analytics::Application do
   end
 
   it "should increment access counter of the root page" do
-    db.set('analytics:/:views', 0)
+    db.set("#{namespace}:/:views", 0)
 
     get '/'
 
-    db.get('analytics:/:views').should == "1"
+    db.get("#{namespace}:/:views").should == "1"
   end
 
   it "should not increment access counter on requests other than get" do
-    db.set('analytics:/:views', 0)
+    db.set("#{namespace}:/:views", 0)
 
     post '/'
     put '/'
     delete '/'
 
-    db.get('analytics:/:views').should == "0"
+    db.get("#{namespace}:/:views").should == "0"
   end
 
   it "should save the referers informations" do
-    db.del 'analytics:/:referers'
+    db.del "#{namespace}:/:referers"
 
     get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
 
-    MessagePack.unpack(db.get('analytics:/:referers')).should == {'http://www.google.com' => 1}
+    MessagePack.unpack(db.get("#{namespace}:/:referers")).should == {'http://www.google.com' => 1}
   end
 end

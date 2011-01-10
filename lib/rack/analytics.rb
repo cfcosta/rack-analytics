@@ -1,11 +1,10 @@
 module Rack
   module Analytics
     class Application
-      DEFAULT_MASK = "analytics:#path#:#method#"
-
-      def initialize app, options = {}, &block
+      def initialize app, options = {}
         @app = app
         @options = options
+        @default_mask = "#{namespace}:#path#:#method#"
       end
 
       def call env
@@ -22,6 +21,10 @@ module Rack
         @options[:redis] || Redis.new
       end
 
+      def namespace
+        @options[:namespace] || 'analytics'
+      end
+
       def set_statistics
         if @env['REQUEST_METHOD'] == 'GET'
           db.incr generate_key(:views)
@@ -36,7 +39,7 @@ module Rack
       end
 
       def generate_key method
-        key = DEFAULT_MASK.dup
+        key = @default_mask.dup
         key['#path#'] = @env['PATH_INFO']
         key['#method#'] = method.to_s
 
