@@ -29,7 +29,6 @@ module Rack
       end
 
       def save_referal_information
-        puts db.get(generate_key(:referers)).inspect
         db.set generate_key(:referers), {}.to_msgpack
 
         referers = MessagePack.unpack db.get(generate_key(:referers))

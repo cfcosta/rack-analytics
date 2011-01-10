@@ -5,7 +5,6 @@ class RedisMock
 
   def get key
     nil if @attributes[key].nil?
-    puts @attributes.inspect
 
     @attributes[key].to_s
   end
