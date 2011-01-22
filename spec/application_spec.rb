@@ -60,5 +60,9 @@ describe Rack::Analytics::Application do
     get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
 
     MessagePack.unpack(db.get("#{namespace}:/:referers")).should == {'http://www.google.com' => 1}
+
+    get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
+
+    MessagePack.unpack(db.get("#{namespace}:/:referers")).should == {'http://www.google.com' => 2}
   end
 end

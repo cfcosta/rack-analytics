@@ -32,10 +32,12 @@ module Rack
       end
 
       def save_referal_information
-        db.set generate_key(:referers), {}.to_msgpack
+        db.set generate_key(:referers), {}.to_msgpack if db.get(generate_key(:referers)) == nil
 
         referers = MessagePack.unpack db.get(generate_key(:referers))
-        referers[@env['HTTP_REFERER']] = (referers[@env['HTTP_REFERER']].to_i + 1).to_s
+        referers[@env['HTTP_REFERER']] = (referers[@env['HTTP_REFERER']].to_i + 1)
+
+        db.set generate_key(:referers), referers.to_msgpack
       end
 
       def generate_key method
