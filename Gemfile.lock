@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     rack-analytics (0.0.1)
+      bson_ext
       mongo
       rack
 
@@ -9,6 +10,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     bson (1.2.0)
+    bson_ext (1.2.0)
     mongo (1.2.0)
       bson (>= 1.2.0)
     nokogiri (1.4.4)
@@ -33,6 +35,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bson_ext
   mongo
   rack
   rack-analytics!

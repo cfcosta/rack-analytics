@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_runtime_dependency('rack')
+  s.add_runtime_dependency('bson_ext')
   s.add_runtime_dependency('mongo')
 
   s.add_development_dependency('riot')
