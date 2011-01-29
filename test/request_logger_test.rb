@@ -57,27 +57,6 @@ context "Rack::Analytics::RequestLogger" do
 
     asserts('counter has incremented') { db['/'].count }.equals 0
   end
-  #
-  # context "should increment access count of the page" do
-  #   setup do
-  #     db.set("#{namespace}:/:views", 0)
-  #     get '/'
-  #   end
-  #
-  #   asserts('counter has incremented') { db.get("#{namespace}:/:views") }.equals "1"
-  # end
-  #
-  # context "should not increment access on put, post and delete requests" do
-  #   setup do
-  #     db.set("#{namespace}:/:views", 0)
-  #     post '/'
-  #     put '/'
-  #     delete '/'
-  #   end
-  #
-  #   asserts("counter hasn't incremented") { db.get("#{namespace}:/:views") }.equals "0"
-  # end
-  #
   # context "should save the referers informations" do
   #   setup do
   #     db.del "#{namespace}:/:referers"
