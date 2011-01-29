@@ -11,24 +11,20 @@ GEM
   remote: http://rubygems.org/
   specs:
     SystemTimer (1.2.1)
-    diff-lcs (1.1.2)
     msgpack (0.4.4)
     nokogiri (1.4.4)
     rack (1.2.1)
     rack-test (0.5.7)
       rack (>= 1.0)
     redis (2.1.1)
-    rspec (2.4.0)
-      rspec-core (~> 2.4.0)
-      rspec-expectations (~> 2.4.0)
-      rspec-mocks (~> 2.4.0)
-    rspec-core (2.4.0)
-    rspec-expectations (2.4.0)
-      diff-lcs (~> 1.1.2)
-    rspec-mocks (2.4.0)
+    riot (0.12.1)
+      rr
+      term-ansicolor
+    rr (1.0.2)
     sinatra (1.1.2)
       rack (~> 1.1)
       tilt (~> 1.2)
+    term-ansicolor (1.0.5)
     tilt (1.2.1)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
@@ -45,6 +41,6 @@ DEPENDENCIES
   rack-analytics!
   rack-test
   redis
-  rspec
+  riot
   sinatra
   webrat

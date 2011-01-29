@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('redis')
   s.add_runtime_dependency('msgpack')
 
-  s.add_development_dependency('rspec')
+  s.add_development_dependency('riot')
   s.add_development_dependency('webrat')
   s.add_development_dependency('sinatra')
   s.add_development_dependency('rack-test')
