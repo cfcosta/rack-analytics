@@ -1,1 +1,1 @@
-require 'rack/analytics/logger'
+require 'rack/analytics/request_logger'

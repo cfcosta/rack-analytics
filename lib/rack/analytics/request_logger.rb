@@ -1,6 +1,6 @@
 module Rack
   module Analytics
-    class Logger
+    class RequestLogger
       def initialize app, options = {}
         @app = app
         @options = options
