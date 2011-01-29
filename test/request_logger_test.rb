@@ -46,6 +46,17 @@ context "Rack::Analytics::RequestLogger" do
 
     asserts('counter has incremented') { db['/'].count }.equals 1
   end
+
+  context "shouldn't create a access document when with post, put and delete" do
+    setup do
+      db.drop_collection '/'
+      post '/'
+      put '/'
+      delete '/'
+    end
+
+    asserts('counter has incremented') { db['/'].count }.equals 0
+  end
   #
   # context "should increment access count of the page" do
   #   setup do
