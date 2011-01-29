@@ -16,7 +16,7 @@ module Rack
 
       private
       def db
-        @options[:db]
+        @options[:db] || Mongo::Connection.new.db(@options[:db_name])
       end
     end
   end
