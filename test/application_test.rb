@@ -29,13 +29,12 @@ describe Rack::Analytics::Application do
     asserts('response has correct body') { last_response.body }.equal? "homepage"
   end
 
-  #it "should render a delete request correctly" do
-    #delete '/'
+  context "should render a delete request correctly" do
+    setup { delete '/' }
 
-    #last_response.should be_ok
-    #last_response.body.should == "homepage with delete"
-  #end
-
+    asserts('response is ok') { last_response.ok? }
+    asserts('response has correct body') { last_response.body }.equal? "homepage"
+  end
   #it "should increment access counter of the root page" do
     #db.set("#{namespace}:/:views", 0)
 
