@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["cainan.costa@gmail.com"]
   s.homepage    = "http://rubygems.org/gems/rack-analytics"
   s.summary     = %q{A rack middleware that collects access statistics}
-  s.description = %q{A rack middleware that collects access statistics and saves them on a Redis database.}
+  s.description = %q{A rack middleware that collects access statistics and saves them on a MongoDB database.}
 
   s.rubyforge_project = "rack-analytics"
 
