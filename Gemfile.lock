@@ -2,21 +2,19 @@ PATH
   remote: .
   specs:
     rack-analytics (0.0.1)
-      SystemTimer
-      msgpack
+      mongo
       rack
-      redis
 
 GEM
   remote: http://rubygems.org/
   specs:
-    SystemTimer (1.2.1)
-    msgpack (0.4.4)
+    bson (1.2.0)
+    mongo (1.2.0)
+      bson (>= 1.2.0)
     nokogiri (1.4.4)
     rack (1.2.1)
     rack-test (0.5.7)
       rack (>= 1.0)
-    redis (2.1.1)
     riot (0.12.1)
       rr
       term-ansicolor
@@ -35,12 +33,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  SystemTimer
-  msgpack
+  mongo
   rack
   rack-analytics!
   rack-test
-  redis
   riot
   sinatra
   webrat
