@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'teststrap'
 
 describe Rack::Analytics::Application do
   it "should render a get request correctly" do
