@@ -57,6 +57,28 @@ context "Rack::Analytics::RequestLogger" do
 
     asserts('counter has incremented') { db['/'].count }.equals 0
   end
+
+  context "should save the time of the access" do
+    setup do
+      db.drop_collection '/'
+      
+      get '/'
+    end
+
+    asserts('it should have a time key') { db['/'].find_one }.includes 'time'
+    asserts('it should have a time set') { db['/'].find_one['time'] }.kind_of Time
+  end
+
+  context "should save the referral information" do
+    setup do
+      db.drop_collection '/'
+      
+      get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
+    end
+
+    asserts('it should have a referral key') { db['/'].find_one }.includes 'referral'
+    asserts('it should have a correct referral set') { db['/'].find_one['referral'] }.equals 'http://www.google.com'
+  end
   # context "should save the referers informations" do
   #   setup do
   #     db.del "#{namespace}:/:referers"

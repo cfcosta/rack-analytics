@@ -8,7 +8,9 @@ module Rack
 
       def call env
         if env['REQUEST_METHOD'] == 'GET'
-          db[env['PATH_INFO']].insert 'time' => Time.now
+          access = { 'time' => Time.now }
+          access['referral'] = env['HTTP_REFERER'] if env['HTTP_REFERER']
+          db[env['PATH_INFO']].insert access
         end
         
         @app.call(env)
