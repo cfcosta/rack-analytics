@@ -8,26 +8,26 @@ describe Rack::Analytics::Application do
     asserts('response has correct body') { last_response.body }.equal? "homepage"
   end
 
-  #it "should render a get request on a inner path correctly" do
-    #get '/inner-page'
+  context "should render a get request on a inner path correctly" do
+    setup { get '/inner-page' }
 
-    #last_response.should be_ok
-    #last_response.body.should == "inner page"
-  #end
+    asserts('response is ok') { last_response.ok? }
+    asserts('response has correct body') { last_response.body }.equal? "inner page"
+  end
 
-  #it "should render a post request correctly" do
-    #post '/'
+  context "should render a post request correctly" do
+    setup { post '/' }
 
-    #last_response.should be_ok
-    #last_response.body.should == "homepage with post"
-  #end
+    asserts('response is ok') { last_response.ok? }
+    asserts('response has correct body') { last_response.body }.equal? "homepage"
+  end
 
-  #it "should render a put request correctly" do
-    #put '/'
+  context "should render a put request correctly" do
+    setup { put '/' }
 
-    #last_response.should be_ok
-    #last_response.body.should == "homepage with put"
-  #end
+    asserts('response is ok') { last_response.ok? }
+    asserts('response has correct body') { last_response.body }.equal? "homepage"
+  end
 
   #it "should render a delete request correctly" do
     #delete '/'
