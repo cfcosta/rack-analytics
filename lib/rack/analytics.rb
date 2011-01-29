@@ -1,4 +1,1 @@
-module Rack
-  module Analytics
-  end
-end
+require 'rack/analytics/logger'
