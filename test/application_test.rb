@@ -35,33 +35,43 @@ describe Rack::Analytics::Application do
     asserts('response is ok') { last_response.ok? }
     asserts('response has correct body') { last_response.body }.equal? "homepage"
   end
-  #it "should increment access counter of the root page" do
-    #db.set("#{namespace}:/:views", 0)
 
-    #get '/'
+  context "should increment access count of the page" do
+    setup do
+      db.set("#{namespace}:/:views", 0)
+      get '/'
+    end
 
-    #db.get("#{namespace}:/:views").should == "1"
-  #end
+    asserts('counter has incremented') { db.get("#{namespace}:/:views") }.equals "1"
+  end
 
-  #it "should not increment access counter on requests other than get" do
-    #db.set("#{namespace}:/:views", 0)
+  context "should not increment access on put, post and delete requests" do
+    setup do
+      db.set("#{namespace}:/:views", 0)
+      post '/'
+      put '/'
+      delete '/'
+    end
 
-    #post '/'
-    #put '/'
-    #delete '/'
+    asserts("counter hasn't incremented") { db.get("#{namespace}:/:views") }.equals "0"
+  end
 
-    #db.get("#{namespace}:/:views").should == "0"
-  #end
+  context "should save the referers informations" do
+    setup do
+      db.del "#{namespace}:/:referers"
+      get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
+    end
 
-  #it "should save the referers informations" do
-    #db.del "#{namespace}:/:referers"
+    asserts('check referral information') { MessagePack.unpack(db.get("#{namespace}:/:referers")) }.equals({'http://www.google.com' => 1})
+  end
 
-    #get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
+  context "should increment the referers informations" do
+    setup do
+      db.del "#{namespace}:/:referers"
+      get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
+      get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
+    end
 
-    #MessagePack.unpack(db.get("#{namespace}:/:referers")).should == {'http://www.google.com' => 1}
-
-    #get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
-
-    #MessagePack.unpack(db.get("#{namespace}:/:referers")).should == {'http://www.google.com' => 2}
-  #end
+    asserts('check referral information') { MessagePack.unpack(db.get("#{namespace}:/:referers")) }.equals({'http://www.google.com' => 2})
+  end
 end
