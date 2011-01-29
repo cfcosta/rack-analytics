@@ -1,6 +1,6 @@
 require 'teststrap'
 
-describe Rack::Analytics::Application do
+describe Rack::Analytics::RequestLogger do
   context "should render a get request correctly" do
     setup { get '/' }
 

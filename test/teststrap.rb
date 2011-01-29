@@ -8,9 +8,9 @@ require 'riot'
 $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__)) + '/lib'
 $LOAD_PATH.unshift File.dirname(File.dirname(__FILE__))
 
-require 'rack/analytics'
-
 require 'test/support/dummy_app'
+
+require 'rack-analytics'
 
 include Webrat::Matchers
 include Webrat::Methods
@@ -22,7 +22,7 @@ end
 
 def app
   Rack::Builder.new do
-    use Rack::Analytics::Application, :redis => db, :namespace => namespace
+    use Rack::Analytics::RequestLogger :db => db, :queue => Queue.new
     run DummyApp
   end
 end
