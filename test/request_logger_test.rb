@@ -21,21 +21,21 @@ context "Rack::Analytics::RequestLogger" do
     setup { post '/' }
 
     asserts('response is ok') { last_response.ok? }
-    asserts('response has correct body') { last_response.body }.equals "homepage"
+    asserts('response has correct body') { last_response.body }.equals "homepage with post"
   end
 
   context "should render a put request correctly" do
     setup { put '/' }
 
     asserts('response is ok') { last_response.ok? }
-    asserts('response has correct body') { last_response.body }.equals "homepage"
+    asserts('response has correct body') { last_response.body }.equals "homepage with put"
   end
 
   context "should render a delete request correctly" do
     setup { delete '/' }
 
     asserts('response is ok') { last_response.ok? }
-    asserts('response has correct body') { last_response.body }.equals "homepage"
+    asserts('response has correct body') { last_response.body }.equals "homepage with delete"
   end
 
   context "should create a access document when visiting the page" do
