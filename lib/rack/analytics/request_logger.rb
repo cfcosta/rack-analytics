@@ -10,6 +10,7 @@ module Rack
         if env['REQUEST_METHOD'] == 'GET'
           access = { 'time' => Time.now }
           access['referral'] = env['HTTP_REFERER'] if env['HTTP_REFERER']
+          access['user_agent'] = env['HTTP_USER_AGENT'] if env['HTTP_USER_AGENT']
           db[env['PATH_INFO']].insert access
         end
         

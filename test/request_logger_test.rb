@@ -61,7 +61,7 @@ context "Rack::Analytics::RequestLogger" do
   context "should save the time of the access" do
     setup do
       db.drop_collection '/'
-      
+
       get '/'
     end
 
@@ -72,11 +72,22 @@ context "Rack::Analytics::RequestLogger" do
   context "should save the referral information" do
     setup do
       db.drop_collection '/'
-      
+
       get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
     end
 
     asserts('it should have a referral key') { db['/'].find_one }.includes 'referral'
     asserts('it should have a correct referral set') { db['/'].find_one['referral'] }.equals 'http://www.google.com'
+  end
+
+  context "should save the user agent information" do
+    setup do
+      db.drop_collection '/'
+
+      get '/', {}, 'HTTP_USER_AGENT' => 'Firefox'
+    end
+
+    asserts('it should have a user agent key') { db['/'].find_one }.includes 'user_agent'
+    asserts('it should have a correct user agent set') { db['/'].find_one['user_agent'] }.equals 'Firefox'
   end
 end
