@@ -10,11 +10,7 @@ module Rack
 
       def call env
         if env['REQUEST_METHOD'] == 'GET'
-          access = { 'time' => Time.now }
-          access['referral'] = env['HTTP_REFERER'] if env['HTTP_REFERER']
-          access['user_agent'] = env['HTTP_USER_AGENT'] if env['HTTP_USER_AGENT']
-
-          queue << access
+          queue << parser.parse(env).data
 
           Thread.new { db[env['PATH_INFO']].insert queue.pop }
         end
@@ -29,6 +25,10 @@ module Rack
       
       def queue
         @options[:queue] ||= Queue.new
+      end
+      
+      def parser
+        @options[:parser] ||= RequestParser.new
       end
     end
   end
