@@ -11,6 +11,7 @@ module Rack
 
         @data['time'] = Time.now
         @data['path'] = request['PATH_INFO']
+        @data['user_agent'] = request['HTTP_USER_AGENT']
 
         return self
       end
