@@ -23,18 +23,18 @@ module Rack
     mattr_accessor :thread
     def self.thread
       @@thread ||= Thread.new do
-        while env = @@queue.pop
+        while env = queue.pop
           db['views'].insert parser.parse(env).data
         end
       end
     end
 
     def self.finish!
-      self.queue << nil
-      self.thread.join
-      self.thread = nil
-      
-      self.thread
+      queue << nil
+      thread.join
+      @@thread = nil
+
+      thread
     end
   end
 end
