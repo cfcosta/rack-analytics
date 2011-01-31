@@ -14,4 +14,18 @@ context 'Rack::Analytics::RequestParser' do
     asserts('it should save the path') { topic.data['path'] }.equals '/'
     asserts('it should save the user agent') { topic.data['user_agent'] }.equals 'Firefox'
   end
+  
+  context "should accept exceptions" do
+    setup { Rack::Analytics::RequestParser.new }
+
+    asserts ('it should accept single arguments') do
+      topic.except = 'time'
+      topic.parse(request).data['time']
+    end.nil
+    
+    asserts ('it should accept multiple values as arguments') do
+      topic.except = ['time']
+      topic.parse(request).data['time']
+    end.nil
+  end
 end
