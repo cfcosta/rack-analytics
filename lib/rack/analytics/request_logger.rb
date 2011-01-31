@@ -6,13 +6,17 @@ module Rack
       def initialize app, options = {}
         @app = app
         @options = options
+
+        @thread = Thread.new do
+          while env = queue.pop
+            db[env['PATH_INFO']].insert parser.parse(env).data
+          end
+        end
       end
 
       def call env
         if env['REQUEST_METHOD'] == 'GET'
-          queue << parser.parse(env).data
-
-          Thread.new { db[env['PATH_INFO']].insert queue.pop }
+          queue << env
         end
 
         @app.call(env)
