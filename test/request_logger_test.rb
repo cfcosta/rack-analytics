@@ -55,7 +55,7 @@ context "Rack::Analytics::RequestLogger" do
       delete '/'
     end
 
-    asserts('counter has incremented') { db['/'].count }.equals 0
+    asserts("counter hasn't incremented") { db['/'].count }.equals 0
   end
 
   context "should save the time of the access" do
