@@ -26,7 +26,7 @@ module Rack
 
       private
       def to_parse
-        @only ? @only.to_a : DEFAULT_KEYS - @except.to_a
+        @to_parse ||= (@only ? @only.to_a : DEFAULT_KEYS - @except.to_a)
       end
     end
   end
