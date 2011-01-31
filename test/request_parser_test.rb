@@ -5,7 +5,8 @@ context 'Rack::Analytics::RequestParser' do
                       "HTTP_USER_AGENT"=>"Firefox", "CONTENT_LENGTH"=>"0", "HTTPS"=>"off",
                       "REMOTE_ADDR"=>"127.0.0.1", "PATH_INFO"=>"/",
                       "SCRIPT_NAME"=>"", "HTTP_COOKIE"=>"", "SERVER_PORT"=>"80",
-                      "REQUEST_METHOD"=>"GET", "QUERY_STRING"=>""} }
+                      "REQUEST_METHOD"=>"GET", "QUERY_STRING"=>"",
+                      "HTTP_REFERER"=> "http://www.google.com"} }
 
   context "should parse the default attributes correctly" do
     setup { Rack::Analytics::RequestParser.new.parse(request) }
@@ -13,6 +14,7 @@ context 'Rack::Analytics::RequestParser' do
     asserts('it should save the time') { topic.data['time'] }.kind_of Time
     asserts('it should save the path') { topic.data['path'] }.equals '/'
     asserts('it should save the user agent') { topic.data['user_agent'] }.equals 'Firefox'
+    asserts('it should save the referral') { topic.data['referral'] }.equals 'http://www.google.com'
   end
 
   context "should accept exceptions" do

@@ -3,7 +3,7 @@ module Rack
     class RequestParser
       attr_reader :data
 
-      DEFAULT_KEYS = ['time', 'path', 'user_agent']
+      DEFAULT_KEYS = ['time', 'path', 'user_agent', 'referral']
 
       def except=(values)
         @except = values.to_a
@@ -19,6 +19,7 @@ module Rack
         @data['time'] = Time.now if to_parse.include? 'time'
         @data['path'] = request['PATH_INFO'] if to_parse.include? 'path'
         @data['user_agent'] = request['HTTP_USER_AGENT'] if to_parse.include? 'user_agent'
+        @data['referral'] = request['HTTP_REFERER'] if to_parse.include? 'referral'
 
         return self
       end
