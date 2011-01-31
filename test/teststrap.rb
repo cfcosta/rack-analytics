@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'webrat'
 require 'rack/test'
 require 'mongo'
 require 'riot'
@@ -12,10 +11,6 @@ require 'test/support/test_helpers'
 
 require 'rack/analytics'
 
-include Webrat::Matchers
-include Webrat::Methods
 include Rack::Test::Methods
 
 include TestHelpers
-
-Webrat.configure { |c| c.mode = :rack }
