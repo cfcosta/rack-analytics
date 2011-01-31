@@ -22,11 +22,17 @@ module Rack
 
     mattr_accessor :thread
     def self.thread
-      @@thread = Thread.new do
+      @@thread ||= Thread.new do
         while env = @@queue.pop
           db[env['PATH_INFO']].insert parser.parse(env).data
         end
       end
+    end
+
+    def self.finish!
+      self.queue << nil
+      self.thread.join
+      self.thread = nil
     end
   end
 end

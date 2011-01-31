@@ -2,6 +2,7 @@ require 'teststrap'
 
 context "Rack::Analytics::RequestLogger" do
   helper(:db) { mongo }
+  teardown { Rack::Analytics.finish! }
   
   context "should render a get request correctly" do
     setup { get '/' }
