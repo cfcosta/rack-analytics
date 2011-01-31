@@ -5,9 +5,6 @@ module Rack
 
       DEFAULT_KEYS = ['time', 'path', 'user_agent']
 
-      def initialize
-      end
-
       def except=(values)
         @except = values.to_a
       end
