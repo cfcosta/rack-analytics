@@ -10,6 +10,7 @@ module Rack
         @data = {}
 
         @data['time'] = Time.now
+        @data['path'] = request['PATH_INFO']
 
         return self
       end

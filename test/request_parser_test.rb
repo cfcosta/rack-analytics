@@ -11,5 +11,6 @@ context 'Rack::Analytics::RequestParser' do
     setup { Rack::Analytics::RequestParser.new }
     
     asserts('it should generate the time') { topic.parse(request).data['time'] }.kind_of Time
+    asserts('it should generate the path') { topic.parse(request).data['path'] }.equals '/'
   end
 end
