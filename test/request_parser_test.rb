@@ -8,9 +8,9 @@ context 'Rack::Analytics::RequestParser' do
                       "REQUEST_METHOD"=>"GET", "QUERY_STRING"=>""} }
 
   context "should parse the default attributes correctly" do
-    setup { Rack::Analytics::RequestParser.new }
+    setup { Rack::Analytics::RequestParser.new.parse(request) }
     
-    asserts('it should generate the time') { topic.parse(request).data['time'] }.kind_of Time
-    asserts('it should generate the path') { topic.parse(request).data['path'] }.equals '/'
+    asserts('it should generate the time') { topic.data['time'] }.kind_of Time
+    asserts('it should generate the path') { topic.data['path'] }.equals '/'
   end
 end
