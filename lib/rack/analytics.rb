@@ -24,7 +24,7 @@ module Rack
     def self.thread
       @@thread ||= Thread.new do
         while env = @@queue.pop
-          db[env['PATH_INFO']].insert parser.parse(env).data
+          db['views'].insert parser.parse(env).data
         end
       end
     end
