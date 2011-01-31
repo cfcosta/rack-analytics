@@ -33,6 +33,8 @@ module Rack
       self.queue << nil
       self.thread.join
       self.thread = nil
+      
+      self.thread
     end
   end
 end
