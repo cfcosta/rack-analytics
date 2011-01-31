@@ -12,6 +12,10 @@ module Rack
         @except = values.to_a
       end
 
+      def only=(values)
+        @only = values.to_a
+      end
+
       def parse request
         @data = {}
 
@@ -24,7 +28,7 @@ module Rack
 
       private
       def to_parse
-        @only ? @only : DEFAULT_KEYS - @except.to_a
+        @only ? @only.to_a : DEFAULT_KEYS - @except.to_a
       end
     end
   end
