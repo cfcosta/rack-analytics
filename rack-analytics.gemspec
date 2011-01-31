@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('rack')
   s.add_runtime_dependency('bson_ext')
   s.add_runtime_dependency('mongo')
+  s.add_runtime_dependency('activesupport')
 
   s.add_development_dependency('riot')
   s.add_development_dependency('webrat')
