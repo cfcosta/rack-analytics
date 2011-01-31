@@ -15,9 +15,7 @@ module Rack
       end
 
       def call env
-        if env['REQUEST_METHOD'] == 'GET'
-          queue << env
-        end
+        queue << env if env['REQUEST_METHOD'] == 'GET'
 
         @app.call(env)
       end
