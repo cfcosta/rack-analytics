@@ -44,4 +44,18 @@ context 'Rack::Analytics::RequestParser' do
       topic.parse(request).data['user_agent']
     end.nil
   end
+
+  context "should accept custom fields" do
+    setup { Rack::Analytics::RequestParser.new }
+
+    asserts('it should receive the custom fields') do
+      topic << lambda { |env, data| data['port'] = env['SERVER_PORT'] }
+      topic.parse(request).data['port']
+    end.equals '80'
+
+    asserts('it should raise TypeError when receiving non-callables') do
+      topic << 0
+      topic.parse request
+    end.raises TypeError
+  end
 end
