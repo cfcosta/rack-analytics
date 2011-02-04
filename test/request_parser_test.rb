@@ -24,7 +24,7 @@ context 'Rack::Analytics::RequestParser' do
       topic.except = 'time'
       topic.parse(request).data['time']
     end.nil
-    
+
     asserts ('it should accept multiple values as arguments') do
       topic.except = ['time']
       topic.parse(request).data['time']
@@ -38,7 +38,7 @@ context 'Rack::Analytics::RequestParser' do
       topic.only = 'time'
       topic.parse(request).data['path']
     end.nil
-    
+
     asserts ('it should accept multiple values as arguments') do
       topic.except = ['time', 'path']
       topic.parse(request).data['user_agent']
