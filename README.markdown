@@ -72,7 +72,7 @@ The env is a hash with all the parameters of the request, and the data is the fi
 * Commit, do not mess with rakefile, version, or history. (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-## Licence ##
+## License ##
 
 Copyright (c) 2011, Cainã Costa <cainan.costa@gmail.com>
 
