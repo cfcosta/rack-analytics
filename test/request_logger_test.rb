@@ -1,9 +1,9 @@
 require 'teststrap'
 
 context "Rack::Analytics::RequestLogger" do
-  helper(:db) { mongo }
+  setup { db.drop_collection 'views' }
   teardown { Rack::Analytics.finish! }
-  
+
   context "should render a get request correctly" do
     setup { get '/' }
 
@@ -40,19 +40,13 @@ context "Rack::Analytics::RequestLogger" do
   end
 
   context "should create a access document when visiting the page" do
-    setup do
-      db.drop_collection 'views'
-
-      get '/'
-    end
+    setup { get '/' }
 
     asserts('counter has incremented') { db['views'].count }.equals 1
   end
 
   context "shouldn't create a access document when with post, put and delete" do
     setup do
-      db.drop_collection 'views'
-
       post '/'
       put '/'
       delete '/'
@@ -62,44 +56,28 @@ context "Rack::Analytics::RequestLogger" do
   end
 
   context "should save the path of the access" do
-    setup do
-      db.drop_collection 'views'
-
-      get '/'
-    end
+    setup { get '/' }
 
     asserts('it should have a time key') { db['views'].find_one }.includes 'path'
     asserts('it should have a time set') { db['views'].find_one['path'] }.equals '/'
   end
 
   context "should save the time of the access" do
-    setup do
-      db.drop_collection 'views'
-
-      get '/'
-    end
+    setup { get '/' }
 
     asserts('it should have a time key') { db['views'].find_one }.includes 'time'
     asserts('it should have a time set') { db['views'].find_one['time'] }.kind_of Time
   end
 
   context "should save the referral information" do
-    setup do
-      db.drop_collection 'views'
-
-      get '/', {}, 'HTTP_REFERER' => 'http://www.google.com'
-    end
+    setup { get '/', {}, 'HTTP_REFERER' => 'http://www.google.com' }
 
     asserts('it should have a referral key') { db['views'].find_one }.includes 'referral'
     asserts('it should have a correct referral set') { db['views'].find_one['referral'] }.equals 'http://www.google.com'
   end
 
   context "should save the user agent information" do
-    setup do
-      db.drop_collection 'views'
-
-      get 'views', {}, 'HTTP_USER_AGENT' => 'Firefox'
-    end
+    setup { get 'views', {}, 'HTTP_USER_AGENT' => 'Firefox' }
 
     asserts('it should have a user agent key') { db['views'].find_one }.includes 'user_agent'
     asserts('it should have a correct user agent set') { db['views'].find_one['user_agent'] }.equals 'Firefox'
