@@ -55,16 +55,11 @@ context "Rack::Analytics::RequestLogger" do
     asserts("counter hasn't incremented") { db['views'].count }.equals 0
   end
 
-  context "should save the path of the access" do
+  context "should save the path and the time of the access" do
     setup { get '/' }
 
-    asserts('it should have a time key') { db['views'].find_one }.includes 'path'
-    asserts('it should have a time set') { db['views'].find_one['path'] }.equals '/'
-  end
-
-  context "should save the time of the access" do
-    setup { get '/' }
-
+    asserts('it should have a path key') { db['views'].find_one }.includes 'path'
+    asserts('it should have a path set') { db['views'].find_one['path'] }.equals '/'
     asserts('it should have a time key') { db['views'].find_one }.includes 'time'
     asserts('it should have a time set') { db['views'].find_one['time'] }.kind_of Time
   end
