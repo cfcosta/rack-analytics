@@ -4,9 +4,21 @@
 
 All requests are created on a separated thread, so it won't add a lot of overhead on each requests.
 
-## Instalation ##
+## Installation on Rails 3 ##
 
-If you're using Bundler (like Rails 3, for example), you can add this line on your `Gemfile`:
+Add this line on your `Gemfile`:
+
+		gem 'rack-analytics'
+
+Run `rails generate rack-analytics:install` to install the initializer file on `config/initializers/rack-analytics.rb`. Some configuration options are highlighted on this file.
+
+Then, on your `config/application.rb`, add the following line after inside your Application class:
+
+		config.middlewares.insert_after Rack::Lock, Rack::Analytics::RequestLogger
+
+## Installation on another Rack applications ##
+
+If you're using Bundler, you can add this line on your `Gemfile`:
 
 		gem 'rack-analytics'
 
