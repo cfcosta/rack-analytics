@@ -2,8 +2,8 @@ require 'teststrap'
 
 context Rack::Analytics do
   context "it should change configuration when setup'ing" do
-    helper(:object) { Object.new }      
-    
+    helper(:object) { Object.new }
+
     context "db_name" do
       setup do
         Rack::Analytics.setup do |config|
