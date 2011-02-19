@@ -2,6 +2,7 @@ require 'rack/analytics/request_logger'
 require 'rack/analytics/request_parser'
 
 require 'active_support/core_ext/module/attribute_accessors'
+require 'mongo'
 
 module Rack
   module Analytics
