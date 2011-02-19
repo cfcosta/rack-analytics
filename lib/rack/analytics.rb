@@ -33,5 +33,9 @@ module Rack
 
       thread
     end
+
+    def self.setup
+      yield self
+    end
   end
 end
