@@ -10,7 +10,7 @@ Add this line on your `Gemfile`:
 
 		gem 'rack-analytics'
 
-Run `rails generate rack-analytics:install` to install the initializer file on `config/initializers/rack-analytics.rb`. Some configuration options are highlighted on this file.
+Run `rails generate rack:analytics:install` to install the initializer file on `config/initializers/rack-analytics.rb`. Some configuration options are highlighted on this file.
 
 Then, on your `config/application.rb`, add the following line after inside your Application class:
 
