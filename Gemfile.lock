@@ -28,6 +28,7 @@ GEM
       tilt (~> 1.2)
     term-ansicolor (1.0.5)
     tilt (1.2.1)
+    watchr (0.7)
 
 PLATFORMS
   ruby
@@ -38,3 +39,4 @@ DEPENDENCIES
   rake
   riot
   sinatra
+  watchr
