@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rack-analytics (0.0.2)
+    rack-analytics (0.0.3)
       activesupport
       bson_ext
       mongo
@@ -35,5 +35,6 @@ PLATFORMS
 DEPENDENCIES
   rack-analytics!
   rack-test
+  rake
   riot
   sinatra
