@@ -1,6 +1,7 @@
-require 'rubygems'
+require 'bundler/setup'
+Bundler.require
+
 require 'rack/test'
-require 'mongo'
 require 'riot'
 
 require 'test/support/dummy_app'
