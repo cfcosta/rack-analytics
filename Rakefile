@@ -13,4 +13,9 @@ task :test do
   end
 end
 
+desc 'Run Watchr'
+task :watchr do
+  system "bundle exec watchr .watchr"
+end
+
 task :default => :test
