@@ -2,14 +2,13 @@ require 'test_helper'
 
 context 'Rack::Analytics::RequestParser' do
   helper(:request) { {"HTTP_HOST"=>"example.org", "SERVER_NAME"=>"example.org",
-                      "HTTP_USER_AGENT"=>"Firefox", "CONTENT_LENGTH"=>"0", "HTTPS"=>"off",
-                      "REMOTE_ADDR"=>"127.0.0.1", "PATH_INFO"=>"/",
-                      "SCRIPT_NAME"=>"", "HTTP_COOKIE"=>"", "SERVER_PORT"=>"80",
-                      "REQUEST_METHOD"=>"GET", "QUERY_STRING"=>"",
-                      "HTTP_REFERER"=> "http://www.google.com"} }
+                      "HTTP_USER_AGENT"=>"Firefox", "PATH_INFO"=>"/", "SERVER_PORT"=>"80",
+                      "REQUEST_METHOD"=>"GET", "QUERY_STRING"=>"", "HTTP_REFERER"=> "http://www.google.com"} }
+
+  setup { Rack::Analytics::RequestParser.new }
 
   context "should parse the default attributes correctly" do
-    setup { Rack::Analytics::RequestParser.new.parse(request) }
+    hookup { topic.parse(request) }
 
     asserts('it should save the time') { topic.data['time'] }.kind_of Time
     asserts('it should save the path') { topic.data['path'] }.equals '/'
@@ -18,8 +17,6 @@ context 'Rack::Analytics::RequestParser' do
   end
 
   context "should accept exceptions" do
-    setup { Rack::Analytics::RequestParser.new }
-
     asserts ('it should accept single arguments') do
       topic.except = 'time'
       topic.parse(request).data['time']
@@ -32,8 +29,6 @@ context 'Rack::Analytics::RequestParser' do
   end
 
   context "should handle 'only'" do
-    setup { Rack::Analytics::RequestParser.new }
-
     asserts ('it should accept single arguments') do
       topic.only = 'time'
       topic.parse(request).data['path']
@@ -46,8 +41,6 @@ context 'Rack::Analytics::RequestParser' do
   end
 
   context "should accept custom fields" do
-    setup { Rack::Analytics::RequestParser.new }
-
     asserts('it should receive the custom fields') do
       topic << lambda { |env, data| data['port'] = env['SERVER_PORT'] }
       topic.parse(request).data['port']
