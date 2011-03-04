@@ -1,4 +1,4 @@
-require 'teststrap'
+require 'test_helper'
 
 context Rack::Analytics do
   context "it should change configuration when setup'ing" do

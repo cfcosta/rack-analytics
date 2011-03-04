@@ -1,4 +1,4 @@
-require 'teststrap'
+require 'test_helper'
 
 context 'Rack::Analytics::RequestParser' do
   helper(:request) { {"HTTP_HOST"=>"example.org", "SERVER_NAME"=>"example.org",

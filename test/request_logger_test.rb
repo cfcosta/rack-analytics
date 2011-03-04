@@ -1,4 +1,4 @@
-require 'teststrap'
+require 'test_helper'
 
 context "Rack::Analytics::RequestLogger" do
   setup { db.drop_collection 'views' }
