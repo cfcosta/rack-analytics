@@ -8,71 +8,87 @@ All requests are created on a separated thread, so it won't add a lot of overhea
 
 Add this line on your `Gemfile`:
 
-		gem 'rack-analytics'
+``` ruby
+gem 'rack-analytics'
+```
 
 Run `rails generate rack:analytics:install` to install the initializer file on `config/initializers/rack-analytics.rb`. Some configuration options are highlighted on this file.
 
 Then, on your `config/application.rb`, add the following line after inside your Application class:
 
-		config.middlewares.insert_after Rack::Lock, Rack::Analytics::RequestLogger
+``` ruby
+config.middlewares.insert_after Rack::Lock, Rack::Analytics::RequestLogger
+```
 
 ## Installation on another Rack applications ##
 
 If you're using Bundler, you can add this line on your `Gemfile`:
 
-		gem 'rack-analytics'
+``` ruby
+gem 'rack-analytics'
+```
 
 Then, run `bundle` to install the gem. If you don't use Bundler, you will need to install the gem manually with the following command:
 
-		gem install rack-analytics
+``` ruby
+gem install rack-analytics
+```
 
 Either way, with the gem installed, you can add this on your `config.ru`:
 
-		require 'rack/analytics'
-		use Rack::Analytics::RequestLogger
+``` ruby
+require 'rack/analytics'
+use Rack::Analytics::RequestLogger
+```
 
 It will do the trick, connecting to MongoDB and start to log all your requests. If you need to change some of the configuration of the database, you can do:
 
-		require 'rack/analytics'
-		
-		# To change the database name only
-		Rack::Analytics.db_name = 'mydb'
-		
-		# To change the database connection completely
-		Rack::Analytics.db = Mongo::Connection.new.db 'mydb'
-		
-		use Rack::Analytics::RequestLogger
+``` ruby
+require 'rack/analytics'
+
+# To change the database name only
+Rack::Analytics.db_name = 'mydb'
+
+# To change the database connection completely
+Rack::Analytics.db = Mongo::Connection.new.db 'mydb'
+
+use Rack::Analytics::RequestLogger
+```
 
 **Rack-Analytics** runs on a threaded environment, and just like `db` and `db_name`, you can set the Queue and the Thread for the parallelism with the keys `queue` and `thread`, respectively **(i don't advise doing that, though)**.
 
 You can also change the parser, to remove some of the fields (on the future, you'll be able to create your own fields based on the request headers):
 
-		require 'rack/analytics'
-		
-		parser = Rack::Analytics::RequestParser.new
-		
-		# Will log only the path and time
-		parser.only = ['time', 'path']
+``` ruby
+require 'rack/analytics'
 
-		# Won't log the time
-		parser.except = 'time'
-		
-		Rack::Analytics.parser = parser
+parser = Rack::Analytics::RequestParser.new
 
-		use Rack::Analytics::RequestLogger
+# Will log only the path and time
+parser.only = ['time', 'path']
+
+# Won't log the time
+parser.except = 'time'
+
+Rack::Analytics.parser = parser
+
+use Rack::Analytics::RequestLogger
+```
 
 Be sure to just use one of those, since they are mutually excludent (and `only` has a preference over `except`). You can also create custom parsers, too, you just need to feed the parser with lambdas, like that:
 
-    require 'rack/analytics'
+``` ruby
+require 'rack/analytics'
 
-    parser = Rack::Analytics::RequestParser.new
+parser = Rack::Analytics::RequestParser.new
 
-    parser << lambda { |env, data| data['port'] = env['SERVER_PORT'] }
-    parser << lambda { |env, data| data['test'] = env['rack.test'] }
+parser << lambda { |env, data| data['port'] = env['SERVER_PORT'] }
+parser << lambda { |env, data| data['test'] = env['rack.test'] }
 
-    Rack::Analytics.parser = parser
+Rack::Analytics.parser = parser
 
-    use Rack::Analytics::RequestLogger
+use Rack::Analytics::RequestLogger
+```
 
 The env is a hash with all the parameters of the request, and the data is the fields that are saved on the MongoDB. Just be creative. You can use any kind of object, though, as long that they respond to `call` with two arguments.
 
