@@ -18,7 +18,7 @@ GEM
     rack (1.2.1)
     rack-test (0.5.7)
       rack (>= 1.0)
-    rake (0.8.7)
+    rake (13.0.1)
     riot (0.12.1)
       rr
       term-ansicolor
