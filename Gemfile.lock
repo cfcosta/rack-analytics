@@ -24,7 +24,7 @@ GEM
     minitest (5.14.1)
     mongo (1.2.4)
       bson (>= 1.2.4)
-    rack (1.2.1)
+    rack (1.6.13)
     rack-test (0.5.7)
       rack (>= 1.0)
     rake (0.8.7)
